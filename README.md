@@ -120,13 +120,38 @@ No Windows, use `copy .env.example .env.local`.
 
 ## API do catálogo
 
-A camada `src/api` concentra o acesso à Tenrai e deve expor:
+A camada `src/api` concentra o acesso à Tenrai e expõe:
+
+```js
+import {
+  listarTopAnimes,
+  listarTemporadaAtual,
+  listarPorGenero,
+  listarGeneros,
+  obterDetalhes,
+} from './api'
+```
 
 - listas de mais populares, temporada atual e por gênero;
 - lista de gêneros disponíveis;
 - detalhes do anime, com diretor e onde assistir;
 - mapeamento para o contrato único;
 - erros tipados, limite de requisições e cache simples.
+
+As listas retornam `diretor: null` e `ondeAssistir: []`, porque a Tenrai só envia esses dados nos detalhes. A página de detalhes busca `/full` e `/staff` em paralelo; se `/staff` falhar, o anime ainda é exibido com `diretor: null`.
+
+### Erros da API
+
+| Código | Quando acontece |
+|---|---|
+| `NAO_ENCONTRADO` | Anime inexistente (404) |
+| `LIMITE_REQUISICOES` | Limite da Tenrai excedido (429) |
+| `ERRO_REDE` | Falha de conexão ou timeout |
+| `ERRO_SERVIDOR` | Erro 5xx da Tenrai |
+| `ERRO_API` | Outro status HTTP de erro |
+| `RESPOSTA_INVALIDA` | JSON inválido ou formato inesperado |
+| `ID_INVALIDO` | Identificador de anime ou gênero inválido |
+| `ABORTADO` | Requisição cancelada pela tela |
 
 As fixtures de `src/api/fixtures` permitem que as telas sejam desenvolvidas antes da API real. Elas não são fallback automático: se a API falhar, a tela mostra erro.
 
@@ -142,7 +167,7 @@ As fixtures de `src/api/fixtures` permitem que as telas sejam desenvolvidas ante
 | Spec da API | `openspec/changes/catalogo-de-animes/specs/catalogo-animes/spec.md` |
 | Design da API | `openspec/changes/catalogo-de-animes/design.md` |
 | Tarefas da API | `openspec/changes/catalogo-de-animes/tasks.md` |
-| Checklist da API | `docs/validacao-api.md` (criado na etapa da API) |
+| Checklist da API | `docs/validacao-api.md` |
 | Checklist do projeto | `docs/validacao.md` (criado na validação final) |
 
 ## Quem faz o quê
@@ -168,7 +193,7 @@ As fixtures de `src/api/fixtures` permitem que as telas sejam desenvolvidas ante
 ## Estado atual
 
 - [x] Base do projeto, rotas, layout e JSON Server
-- [ ] API do catálogo em `src/api` (Tenrai)
+- [x] API do catálogo em `src/api` (Tenrai)
 - [ ] Página inicial e cards
 - [ ] Página de detalhes
 - [ ] Favoritos
