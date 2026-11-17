@@ -4,29 +4,41 @@ schema: spec-driven
 # Add only constraints that should guide OpenSpec artifacts and workflows.
 # Include constraints an agent cannot infer by reading the code.
 # Keep general project documentation and discoverable codebase facts out.
-# Example:
-#   context: |
-#     Designs and tasks must cover Windows, macOS, and Linux
-#     Write all artifacts in Spanish
+context: |
+  Projeto acadêmico (faculdade) em português: catálogo de animes em React + Vite.
+  Todos os artefatos do OpenSpec devem ser escritos em português do Brasil.
+  A API pública de animes é a Tenrai (https://api.tenrai.org/v1), que substitui
+  a Jikan, descontinuada em 01/10/2026. A Tenrai é compatível com o schema Jikan v4;
+  o identificador usado é `mal_id`.
+  O catálogo da tarefa 2 fica em `src/api` e expõe listas (top, temporada atual e
+  por gênero), detalhes, equipe (diretor) e streaming, já transformados no contrato:
+  { id, titulo, capa, ano, diretor, sinopse, ondeAssistir[] }.
+  `ondeAssistir` é um array de objetos { nome, url }.
+  Favoritos usam JSON Server na porta 3001, com `db.json` contendo { "favoritos": [] }.
+  A URL da API vem de `VITE_ANIME_API_URL`, com fallback para a URL pública da Tenrai.
+  O escopo da tarefa 2 não inclui telas completas: Home, Detalhes e Favoritos são
+  tarefas de outros integrantes, especificadas na change `catalogo-projeto`.
+  A change `catalogo-de-animes` cobre somente a API em `src/api`.
+  O trabalho será commitado pelo próprio usuário em dois commits:
+  `chore: configs` e depois `feat(api): ...`. O agente nunca executa `git commit`.
 
 # Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always state what is out of scope
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+rules:
+  proposal:
+    - Deixe explícito o que está fora do escopo (telas completas e favoritos funcionais).
+    - Registre a substituição da Jikan pela Tenrai como decisão central.
+  specs:
+    - Use o contrato do anime exatamente como definido no contexto do projeto.
+    - Cubra 404, 429, falha de rede, resposta inválida e lista vazia.
+  tasks:
+    - Na change da API, separe as tarefas entre commit 1 (configs) e commit 2 (API).
+    - Na change do projeto, organize as tarefas por papel/integrante.
+    - Inclua validação manual e `npm run lint` / `npm run build`.
 
 # Per-operation guidance (optional)
 # Add advisory guidance for how apply and archive work should be conducted.
-# This is separate from artifact rules above.
-# Example:
-#   operations:
-#     apply:
-#       guidance:
-#         - Keep test summaries concise
-#     archive:
-#       guidance:
-#         - Summarize the archive outcome before finishing
+operations:
+  apply:
+    guidance:
+      - Não executar `git commit`; o usuário faz os commits.
+      - Manter as telas completas fora do escopo da API.
