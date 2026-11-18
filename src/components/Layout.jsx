@@ -1,4 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom'
+import { useFavoritos } from '../context/useFavoritos.js'
+import AvisoFavoritos from './AvisoFavoritos.jsx'
+import EfeitoFavorito from './EfeitoFavorito.jsx'
 
 function classeDoLink({ isActive }) {
   return isActive
@@ -7,6 +10,9 @@ function classeDoLink({ isActive }) {
 }
 
 function Layout() {
+  const { favoritos } = useFavoritos()
+  const quantidade = favoritos.length
+
   return (
     <div className="app">
       <header className="cabecalho">
@@ -26,8 +32,21 @@ function Layout() {
             <NavLink to="/" end className={classeDoLink}>
               Início
             </NavLink>
-            <NavLink to="/favoritos" className={classeDoLink}>
+            <NavLink
+              to="/favoritos"
+              className={classeDoLink}
+              aria-label={
+                quantidade > 0
+                  ? `Favoritos, ${quantidade} ${quantidade === 1 ? 'anime' : 'animes'}`
+                  : undefined
+              }
+            >
               Favoritos
+              {quantidade > 0 && (
+                <span className="navegacao__contador" aria-hidden="true">
+                  {quantidade}
+                </span>
+              )}
             </NavLink>
           </nav>
         </div>
@@ -42,6 +61,9 @@ function Layout() {
           Projeto acadêmico — catálogo de animes com dados da Tenrai.
         </p>
       </footer>
+
+      <AvisoFavoritos />
+      <EfeitoFavorito />
     </div>
   )
 }

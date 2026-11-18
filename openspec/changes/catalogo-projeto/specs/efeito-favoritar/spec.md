@@ -8,12 +8,17 @@ Define o efeito visual exibido quando o usuário favorita um anime, garantindo q
 
 ### Requirement: Efeito visual ao favoritar
 
-Ao adicionar um anime aos favoritos, o app SHALL exibir um efeito visual breve inspirado em anime, com duração máxima de um segundo, sem cobrir o conteúdo principal da tela.
+Ao adicionar um anime aos favoritos, o app SHALL exibir um efeito visual breve inspirado em anime: pequenos corações e brilhos saindo da posição do coração acionado, acompanhados de uma onomatopeia curta em japonês (por exemplo, "好き!" ou "ドキッ"). O efeito SHALL ter duração máxima de um segundo e não SHALL cobrir o conteúdo principal da tela. O efeito SHALL funcionar da mesma forma em qualquer tela que tenha o coração (Home, Detalhes e Favoritos).
 
 #### Scenario: Anime favoritado
 
 - **WHEN** o usuário aciona o coração para adicionar um anime aos favoritos
-- **THEN** o efeito visual é exibido uma vez e desaparece sozinho em até um segundo
+- **THEN** o efeito visual é exibido uma vez, a partir do coração acionado, e desaparece sozinho em até um segundo
+
+#### Scenario: Favoritos seguidos
+
+- **WHEN** o usuário favorita dois animes diferentes em sequência rápida
+- **THEN** cada adição dispara o seu próprio efeito, sem acumular elementos na tela após o término
 
 #### Scenario: Anime removido dos favoritos
 
