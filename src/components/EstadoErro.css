@@ -1,0 +1,57 @@
+.estado-erro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 3rem 1rem;
+  text-align: center;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  background: var(--fundo-elevado);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.estado-erro__icone {
+  font-size: 2.5rem;
+  opacity: 0.7;
+}
+
+.estado-erro__titulo {
+  margin: 0;
+  color: var(--texto);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.estado-erro__mensagem {
+  margin: 0.5rem 0 1.5rem;
+  color: var(--texto-suave);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.estado-erro__botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.25rem;
+  border-radius: 999px;
+  border: none;
+  background: var(--destaque);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: filter 0.2s, transform 0.2s;
+}
+
+.estado-erro__botao:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.estado-erro__botao:focus-visible {
+  outline: 2px solid var(--destaque);
+  outline-offset: 3px;
+}
