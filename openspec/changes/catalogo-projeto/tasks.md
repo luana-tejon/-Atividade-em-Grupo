@@ -20,12 +20,12 @@
 
 ## 3. Página de detalhes (João Vitor)
 
-- [ ] 3.1 Criar `src/pages/Detalhes.jsx` consumindo `obterDetalhes(id)` e exibindo capa, título, ano, diretor e sinopse; verificar com o anime 1 que os campos aparecem no contrato.
-- [ ] 3.2 Exibir “Não informado” para diretor, ano ou sinopse ausentes; verificar com fixture sem diretor que a página não quebra.
-- [ ] 3.3 Implementar a seção “Onde assistir” com links `target="_blank"` e `rel="noreferrer"`; verificar que os links abrem em nova aba e que a ausência de streaming mostra mensagem explicativa.
-- [ ] 3.4 Tratar `NAO_ENCONTRADO` com a mensagem “Anime não encontrado” e link para o início; verificar com `/anime/999999999` e com `/anime/abc`.
-- [ ] 3.5 Tratar erro de rede, erro de servidor e limite de requisições com mensagem específica e nova tentativa; verificar desligando a rede e simulando erro no console.
-- [ ] 3.6 Documentar no README o comportamento da página de detalhes para campos ausentes e anime inexistente; verificar que a documentação bate com a tela.
+- [x] 3.1 Criar `src/pages/Detalhes.jsx` consumindo `obterDetalhes(id)` e exibindo capa, título, ano, diretor e sinopse; verificar com o anime 1 que os campos aparecem no contrato.
+- [x] 3.2 Exibir “Não informado” para diretor, ano ou sinopse ausentes; verificar com fixture sem diretor que a página não quebra.
+- [x] 3.3 Implementar a seção “Onde assistir” com links `target="_blank"` e `rel="noreferrer"`; verificar que os links abrem em nova aba e que a ausência de streaming mostra mensagem explicativa.
+- [x] 3.4 Tratar `NAO_ENCONTRADO` com a mensagem “Anime não encontrado” e link para o início; verificar com `/anime/999999999` e com `/anime/abc`.
+- [x] 3.5 Tratar erro de rede, erro de servidor e limite de requisições com mensagem específica e nova tentativa; verificar desligando a rede e simulando erro no console.
+- [x] 3.6 Documentar no README o comportamento da página de detalhes para campos ausentes e anime inexistente; verificar que a documentação bate com a tela.
 
 ## 4. Favoritos (Gustavo)
 

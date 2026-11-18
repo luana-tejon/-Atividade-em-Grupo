@@ -155,6 +155,16 @@ As listas retornam `diretor: null` e `ondeAssistir: []`, porque a Tenrai só env
 
 As fixtures de `src/api/fixtures` permitem que as telas sejam desenvolvidas antes da API real. Elas não são fallback automático: se a API falhar, a tela mostra erro.
 
+### Página de detalhes
+
+A rota `/anime/:id` busca o anime pelo identificador da URL com `obterDetalhes(id, { signal })`, inclusive quando o usuário chega pela Home ou recarrega a página. A tela mostra capa, título, ano, diretor, sinopse e a seção “Onde assistir”, com link para voltar ao início. Enquanto consulta, exibe “Carregando detalhes do anime...”.
+
+- Campos ausentes de ano, diretor ou sinopse aparecem como “Não informado”; título vazio vira “Título não informado”; capa ausente ou quebrada vira o espaço reservado “Capa não disponível”.
+- Sem plataformas, a seção mostra “Nenhuma plataforma de streaming informada para este anime.”. Os links usam as URLs retornadas pela API e abrem em nova aba com `rel="noopener noreferrer"`.
+- Identificadores inválidos (`/anime/abc`, `/anime/0`, `/anime/-1`, `/anime/1.5`) mostram “Anime não encontrado” sem chamar a API. Um ID válido e inexistente (`/anime/999999999`) recebe o mesmo estado a partir de `NAO_ENCONTRADO`.
+- Falhas de rede, servidor, limite de requisições e resposta inválida exibem a mensagem do código correspondente com “Tentar novamente”, que refaz a consulta do ID atual. Cancelamentos por navegação são ignorados.
+- Se a consulta de equipe falhar, os demais detalhes continuam visíveis com diretor “Não informado”.
+
 ## Onde estão os artefatos
 
 | Artefato | Caminho |
@@ -195,7 +205,7 @@ As fixtures de `src/api/fixtures` permitem que as telas sejam desenvolvidas ante
 - [x] Base do projeto, rotas, layout e JSON Server
 - [x] API do catálogo em `src/api` (Tenrai)
 - [ ] Página inicial e cards
-- [ ] Página de detalhes
+- [x] Página de detalhes
 - [ ] Favoritos
 - [ ] Efeito ao favoritar e validação final
 
