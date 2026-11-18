@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { obterDetalhes, CODIGOS } from '../api'
 import EstadoCarregando from '../components/EstadoCarregando.jsx'
 import EstadoErro from '../components/EstadoErro.jsx'
+import BotaoFavorito from '../components/BotaoFavorito.jsx'
 import './Detalhes.css'
 
 const TEXTO_NAO_INFORMADO = 'Não informado'
@@ -140,6 +141,9 @@ function Detalhes() {
               ? titulo || 'Título não informado'
               : 'Detalhes do anime'}
         </h1>
+        {visivel.status === 'sucesso' && anime && (
+          <BotaoFavorito anime={anime} variante="detalhes" />
+        )}
       </header>
 
       {visivel.status === 'naoEncontrado' && (

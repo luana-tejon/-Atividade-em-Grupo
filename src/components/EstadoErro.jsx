@@ -1,6 +1,7 @@
 import './EstadoErro.css'
 
-function EstadoErro({ codigo, onRetry }) {
+// `mensagem` (opcional) tem prioridade sobre o texto derivado de `codigo`.
+function EstadoErro({ codigo, onRetry, mensagem: mensagemPersonalizada }) {
   let mensagem = 'Não foi possível carregar os dados. Tente novamente.'
 
   if (codigo === 'NAO_ENCONTRADO') {
@@ -25,7 +26,9 @@ function EstadoErro({ codigo, onRetry }) {
         &#x26A0;
       </div>
       <h2 className="estado-erro__titulo">Erro ao carregar</h2>
-      <p className="estado-erro__mensagem">{mensagem}</p>
+      <p className="estado-erro__mensagem">
+        {mensagemPersonalizada || mensagem}
+      </p>
       {onRetry && (
         <button
           className="estado-erro__botao"

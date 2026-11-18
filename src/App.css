@@ -65,6 +65,21 @@
   background: var(--fundo-suave);
 }
 
+.navegacao__contador {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.35rem;
+  height: 1.35rem;
+  margin-left: 0.4rem;
+  padding: 0 0.35rem;
+  border-radius: 999px;
+  background: var(--destaque);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
 .navegacao__link--ativo {
   color: var(--texto);
   background: var(--destaque-suave);

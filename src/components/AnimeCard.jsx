@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import BotaoFavorito from './BotaoFavorito.jsx'
 import './AnimeCard.css'
 
 function AnimeCard({ anime }) {
@@ -27,6 +28,8 @@ function AnimeCard({ anime }) {
         </div>
         <h3 className="anime-card__titulo">{titulo || 'Sem título'}</h3>
       </Link>
+      {/* Irmão do link: evita <button> dentro de <a> e não navega ao clicar. */}
+      <BotaoFavorito anime={anime} />
     </article>
   )
 }

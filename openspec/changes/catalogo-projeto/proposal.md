@@ -11,7 +11,7 @@ O grupo precisa de uma spec única para o produto inteiro antes de dividir a imp
 - Especificar a navegação e o layout base: rotas `/`, `/anime/:id`, `/favoritos` e página de não encontrado.
 - Especificar a página inicial com listas de animes (top, temporada e gênero), o componente de card e os estados de carregando, vazio e erro.
 - Especificar a página de detalhes com capa, ano, diretor, sinopse, onde assistir e tratamento de anime não encontrado.
-- Especificar os favoritos: coração, estado global, API no JSON Server, página “Meus favoritos”, regra de duplicado e erro de gravação.
+- Especificar os favoritos: botão de coração (♡/♥) nos cards e nos detalhes, contador na navegação, estado global, API no JSON Server, página “Meus favoritos” com lista em grade, regra de duplicado e erro de gravação.
 - Especificar o efeito visual ao favoritar e sua acessibilidade.
 - Documentar a divisão de responsabilidades por integrante e os critérios de aceitação de cada tarefa.
 
@@ -35,8 +35,8 @@ Nenhuma. A capability `catalogo-animes` está sendo introduzida pela change `cat
 - **Rotas e layout:** `src/main.jsx`, `src/App.jsx`, `src/components/Layout.jsx`, `src/pages/*`.
 - **Catálogo:** `src/pages/Home.jsx`, `src/components/AnimeCard.jsx` e componentes de estado; consome `src/api` (change `catalogo-de-animes`).
 - **Detalhes:** `src/pages/Detalhes.jsx`; consome `src/api`.
-- **Favoritos:** `src/api/favoritos.js`, `src/context/FavoritosContext.jsx`, `src/pages/Favoritos.jsx`, `db.json`.
-- **Efeito:** `src/components/EfeitoFavorito.jsx` e CSS correspondente.
+- **Favoritos:** `src/api/favoritos.js`, `src/context/FavoritosContext.jsx`, `src/components/BotaoFavorito.jsx`, `src/pages/Favoritos.jsx`, `db.json`. Ajustes pontuais em arquivos de outras tarefas: `src/main.jsx` (Provider), `src/components/Layout.jsx` (contador, aviso de erro e efeito), `src/components/AnimeCard.jsx` e `src/pages/Detalhes.jsx` (coração) e `src/components/EstadoErro.jsx` (prop `mensagem`).
+- **Efeito:** `src/components/EfeitoFavorito.jsx` e CSS correspondente, montado no `Layout`.
 - **Documentação:** README (arquitetura, como rodar, divisão de tarefas, reflexão) e checklist de validação.
 - **Dependências:** nenhuma nova além do que já está no `package.json` (`react-router-dom` e `json-server`).
 

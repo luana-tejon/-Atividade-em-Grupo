@@ -1,0 +1,33 @@
+.favoritos__conteudo {
+  margin-top: 2.5rem;
+}
+
+.favoritos__contador {
+  margin-bottom: 1.25rem;
+  color: var(--texto-suave);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.favoritos__grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1.5rem;
+}
+
+.favoritos__vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.favoritos__link-catalogo {
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .favoritos__grade {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+  }
+}

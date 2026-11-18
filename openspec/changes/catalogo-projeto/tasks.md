@@ -29,19 +29,21 @@
 
 ## 4. Favoritos (Gustavo)
 
-- [ ] 4.1 Criar `src/api/favoritos.js` com `listarFavoritos`, `adicionarFavorito` e `removerFavorito` no JSON Server; verificar os três verbos com `curl` e conferir o conteúdo de `db.json`.
-- [ ] 4.2 Criar `FavoritosContext` com `favoritos`, `ehFavorito(id)`, `adicionar`, `remover`, `carregando` e `erro`, carregando no início do app; verificar que duas telas refletem a mesma mudança.
-- [ ] 4.3 Implementar favorito como snapshot do contrato, com atualização otimista e rollback em falha; verificar que uma falha simulada restaura o coração e mostra erro.
-- [ ] 4.4 Implementar o botão de coração com nome acessível e regra de alternância (favoritar/desfavoritar); verificar que dois cliques não criam duplicata e que o estado persiste após recarregar.
-- [ ] 4.5 Criar a página `/favoritos` com lista, remoção, estado vazio e link para o catálogo; verificar que um favorito removido desaparece da página e do coração.
-- [ ] 4.6 Tratar JSON Server fora do ar sem derrubar o catálogo; verificar parando o `npm run api` e navegando entre Home e Favoritos.
-- [ ] 4.7 Documentar no README os endpoints de favoritos e a regra de duplicado; verificar que os exemplos de `curl` funcionam como escrito.
+- [x] 4.1 Criar `src/api/favoritos.js` com `listarFavoritos`, `adicionarFavorito` e `removerFavorito` no JSON Server (`http://localhost:3001`), gravando `animeId` (mal_id) com o `id` gerado pelo servidor, devolvendo o contrato com `id` numérico e a relação `animeId → ids de registro`, e lançando `ApiError` com código `FAVORITOS_INDISPONIVEL`; verificar os três verbos com `curl` (incluindo `DELETE /favoritos/{idRegistro}`) e conferir o conteúdo de `db.json`.
+- [ ] 4.2 Criar `src/context/FavoritosContext.jsx` com `FavoritosProvider` e `useFavoritos()`, expondo `favoritos`, `ehFavorito`, `alternar`, `adicionar`, `remover`, `recarregar`, `pendentes`, `carregando`, `erro`, `erroGravacao`, `limparErroGravacao` e `ultimoAdicionado`; envolver `<App />` em `src/main.jsx` dentro do `BrowserRouter`; verificar que duas telas refletem a mesma mudança.
+- [ ] 4.3 Implementar favorito como snapshot do contrato, com deduplicação por `id` na leitura, atualização otimista e rollback em falha; verificar que uma falha simulada restaura o coração e preenche `erroGravacao`.
+- [ ] 4.4 Criar `src/components/BotaoFavorito.jsx` (♡/♥, `aria-pressed`, `aria-label` "Adicionar/Remover {título} dos favoritos", foco visível, desabilitado em `carregando`/`erro`/`pendentes`), chamando `alternar(anime)` e enviando a posição do botão em `origem`; verificar com mouse e teclado que dois cliques rápidos não criam duplicata e que o estado persiste após recarregar.
+- [ ] 4.5 Inserir o `BotaoFavorito` no `AnimeCard` como irmão do `<Link>` (sobre o canto da capa) e no cabeçalho de `Detalhes.jsx`; verificar que clicar no coração do card não navega e que o HTML não tem `<button>` dentro de `<a>`.
+- [ ] 4.6 Adicionar o selo com a quantidade de favoritos no link "Favoritos" do `Layout`, com `aria-label` "Favoritos, N animes" e sem selo quando zero; verificar que o número muda ao favoritar/remover sem recarregar.
+- [ ] 4.7 Implementar a página `/favoritos` com carregando, erro (prop nova `mensagem` no `EstadoErro` + `onRetry={recarregar}`), estado vazio com link para `/`, contador "N animes" e grade de `AnimeCard` na ordem de inserção; verificar que um favorito removido desaparece da página, do contador e dos outros corações, e que remover o último mostra o estado vazio.
+- [ ] 4.8 Criar `AvisoFavoritos` no `Layout` mostrando `erroGravacao` em `role="alert"`, com botão de fechar e sumindo após ~4s; tratar JSON Server fora do ar sem derrubar o catálogo; verificar parando o `npm run api`, tentando favoritar/remover e navegando entre Home e Favoritos, e depois religando e usando "Tentar novamente".
+- [ ] 4.9 Documentar no README os endpoints de favoritos, a regra de `id` do servidor + `animeId` e a regra de duplicado; verificar que os exemplos de `curl` funcionam como escrito.
 
 ## 5. Efeito e validação (Vitória)
 
-- [ ] 5.1 Criar `src/components/EfeitoFavorito.jsx` com overlay `position: fixed`, `pointer-events: none` e animação CSS de até 1 segundo; verificar que o efeito aparece ao favoritar e não bloqueia cliques.
-- [ ] 5.2 Respeitar `prefers-reduced-motion` e anunciar a mudança em região `aria-live`; verificar com a preferência ativada no sistema e com leitor de tela.
-- [ ] 5.3 Disparar o efeito apenas ao adicionar, não ao remover, e garantir que falha de gravação mostre erro e reverta o coração; verificar com o JSON Server parado.
+- [ ] 5.1 Criar `src/components/EfeitoFavorito.jsx` (e CSS), montado uma vez no `Layout`, observando `ultimoAdicionado` do `useFavoritos()` e usando `chave` como `key`; overlay `position: fixed` em `origem`, `pointer-events: none`, corações/brilhos e onomatopeia "好き!" em `@keyframes` de até 1 segundo, desmontado ao terminar; verificar que o efeito sai do coração acionado na Home, em Detalhes e em Favoritos e não bloqueia cliques.
+- [ ] 5.2 Respeitar `prefers-reduced-motion` e anunciar "{título} adicionado aos favoritos" em região `aria-live="polite"`; verificar com a preferência ativada no sistema e com leitor de tela.
+- [ ] 5.3 Garantir que o efeito dispara apenas ao adicionar (não ao remover), que duas adições seguidas geram dois efeitos sem sobras no DOM e que falha de gravação mostre o `AvisoFavoritos` e reverta o coração; verificar com o JSON Server parado.
 - [ ] 5.4 Criar `docs/validacao.md` com critérios de aceitação e checklist de todas as tarefas; verificar que cada item tem resultado registrado e data.
 - [ ] 5.5 Preencher a seção “Reflexão” do README com as respostas do grupo; verificar que não restou nenhum `[A preencher]`.
 
