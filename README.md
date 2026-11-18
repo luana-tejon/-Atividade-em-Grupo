@@ -50,6 +50,7 @@ Todos os integrantes usam o mesmo objeto:
   titulo: 'Nome do anime',
   capa: 'https://exemplo.com/capa.jpg',
   ano: 2024,
+  avaliacao: 8.74,
   diretor: 'Nome do diretor',
   sinopse: 'Texto da sinopse.',
   ondeAssistir: [
@@ -57,6 +58,8 @@ Todos os integrantes usam o mesmo objeto:
   ]
 }
 ```
+
+`avaliacao` vem do `score` da Tenrai: é um número finito de 1 a 10, com a precisão original, ou `null` quando a média não está disponível ou é inválida. Os cards exibem a nota em `pt-BR` com uma casa decimal, por exemplo `★ 8,7/10`; sem nota, exibem `Sem avaliação`.
 
 `ondeAssistir` é uma lista de `{ nome, url }`. Campos sem dado viram `null`; a ausência de plataformas vira `[]`. As listas podem trazer `diretor: null` e `ondeAssistir: []`, porque esses dados só existem nos detalhes.
 
@@ -138,7 +141,7 @@ import {
 - mapeamento para o contrato único;
 - erros tipados, limite de requisições e cache simples.
 
-As listas retornam `diretor: null` e `ondeAssistir: []`, porque a Tenrai só envia esses dados nos detalhes. A página de detalhes busca `/full` e `/staff` em paralelo; se `/staff` falhar, o anime ainda é exibido com `diretor: null`.
+As listas retornam `diretor: null` e `ondeAssistir: []`, porque a Tenrai só envia esses dados nos detalhes. A nota de cada anime, porém, já vem no `score` da própria listagem e é mapeada para `avaliacao` sem consulta extra. A página de detalhes busca `/full` e `/staff` em paralelo; se `/staff` falhar, o anime ainda é exibido com `diretor: null`.
 
 ### Erros da API
 

@@ -37,23 +37,51 @@ A página inicial SHALL apresentar listas de animes em seções separadas: mais 
 
 ### Requirement: Card de anime
 
-O card SHALL exibir a capa e o título do anime e SHALL levar à página de detalhes daquele anime ao ser acionado.
+O card SHALL exibir a capa, o título e a avaliação do catálogo do anime e SHALL levar à página de detalhes daquele anime ao ser acionado. A avaliação SHALL aparecer logo abaixo do título, dentro do mesmo link, formatada em `pt-BR` com uma casa decimal e prefixada por uma estrela `★` informativa. Quando a nota estiver indisponível, o card SHALL mostrar “Sem avaliação”. O coração SHALL permanecer um controle separado do link.
 
 #### Scenario: Abertura dos detalhes pelo card
 
 - **WHEN** o usuário aciona um card
 - **THEN** o app navega para `/anime/:id` com o identificador do anime escolhido
 
+#### Scenario: Avaliação formatada
+
+- **GIVEN** que o anime tem `avaliacao` 8.74
+- **WHEN** o card é exibido
+- **THEN** a linha de avaliação mostra `★ 8,7/10`
+
+#### Scenario: Avaliação máxima
+
+- **GIVEN** que o anime tem `avaliacao` 10
+- **WHEN** o card é exibido
+- **THEN** a linha de avaliação mostra `★ 10,0/10`
+
+#### Scenario: Avaliação ausente
+
+- **GIVEN** que o anime tem `avaliacao: null`, não possui o campo ou recebeu um valor inválido
+- **WHEN** o card é exibido
+- **THEN** a linha de avaliação mostra “Sem avaliação”, sem estrela
+
 #### Scenario: Anime sem capa
 
 - **GIVEN** que o anime não possui URL de capa
 - **WHEN** o card é exibido
-- **THEN** ele mostra um espaço reservado sem quebrar o layout e mantém o título legível
+- **THEN** ele mostra um espaço reservado sem quebrar o layout e mantém o título e a avaliação legíveis
 
 #### Scenario: Acessibilidade do card
 
 - **WHEN** o card é lido por tecnologia assistiva
-- **THEN** a imagem possui texto alternativo com o título e o link possui nome acessível
+- **THEN** a imagem possui texto alternativo com o título, a estrela tem `aria-hidden="true"` e o nome acessível do link informa a avaliação, como “Ver detalhes de Cowboy Bebop. Avaliação do catálogo de 8,7 em 10” ou “Ver detalhes de Cowboy Bebop. Sem avaliação”
+
+#### Scenario: Coração separado do link
+
+- **WHEN** o usuário navega por teclado até o card
+- **THEN** o link abre os detalhes e o coração, como irmão do link, alterna o favorito sem navegar
+
+#### Scenario: Responsividade da avaliação
+
+- **WHEN** o card é exibido em 360 px ou em 1280 px
+- **THEN** a avaliação permanece legível sob o título, sem quebrar o layout
 
 ### Requirement: Estados de carregamento, vazio e erro
 

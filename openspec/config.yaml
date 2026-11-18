@@ -12,7 +12,9 @@ context: |
   o identificador usado é `mal_id`.
   O catálogo da tarefa 2 fica em `src/api` e expõe listas (top, temporada atual e
   por gênero), detalhes, equipe (diretor) e streaming, já transformados no contrato:
-  { id, titulo, capa, ano, diretor, sinopse, ondeAssistir[] }.
+  { id, titulo, capa, ano, avaliacao, diretor, sinopse, ondeAssistir[] }.
+  `avaliacao` é a média `score` da Tenrai: número finito de 1 a 10, com a
+  precisão original, ou null quando ausente ou inválida.
   `ondeAssistir` é um array de objetos { nome, url }.
   Favoritos usam JSON Server na porta 3001, com `db.json` contendo { "favoritos": [] }.
   A URL da API vem de `VITE_ANIME_API_URL`, com fallback para a URL pública da Tenrai.

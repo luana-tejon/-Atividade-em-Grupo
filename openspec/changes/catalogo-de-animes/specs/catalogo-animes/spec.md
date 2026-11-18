@@ -8,13 +8,25 @@ Define como o app obtém, normaliza e entrega os dados de animes vindos da Tenra
 
 ### Requirement: Contrato normalizado do anime
 
-A API do catálogo SHALL entregar todo anime no contrato `{ id, titulo, capa, ano, diretor, sinopse, ondeAssistir }`, sem expor campos brutos da Tenrai. `ondeAssistir` SHALL ser uma lista de objetos `{ nome, url }`.
+A API do catálogo SHALL entregar todo anime no contrato `{ id, titulo, capa, ano, avaliacao, diretor, sinopse, ondeAssistir }`, sem expor campos brutos da Tenrai. `avaliacao` SHALL ser a média `score` da Tenrai como número finito de 1 a 10, preservando a precisão recebida, ou `null` quando ausente ou inválida. `ondeAssistir` SHALL ser uma lista de objetos `{ nome, url }`.
 
 #### Scenario: Mapeamento de um anime completo
 
-- **GIVEN** que a Tenrai retorna um anime com `mal_id`, título, imagens, ano, sinopse e streaming
+- **GIVEN** que a Tenrai retorna um anime com `mal_id`, título, imagens, ano, `score`, sinopse e streaming
 - **WHEN** a API do catálogo normaliza o anime
-- **THEN** o resultado contém `id` numérico, `titulo` em inglês com fallback para o original, `capa` com fallback entre imagens, `ano` numérico ou `null`, `sinopse` sem HTML ou `null` e `ondeAssistir` como lista de `{ nome, url }`
+- **THEN** o resultado contém `id` numérico, `titulo` em inglês com fallback para o original, `capa` com fallback entre imagens, `ano` numérico ou `null`, `avaliacao` igual ao `score`, `sinopse` sem HTML ou `null` e `ondeAssistir` como lista de `{ nome, url }`
+
+#### Scenario: Precisão da avaliação
+
+- **GIVEN** que a Tenrai retorna `score` 8.74
+- **WHEN** a API do catálogo normaliza o anime
+- **THEN** `avaliacao` é 8.74, sem arredondamento
+
+#### Scenario: Avaliação ausente ou inválida
+
+- **GIVEN** que o `score` está ausente, é `null`, é menor que 1 ou é maior que 10
+- **WHEN** a API do catálogo normaliza o anime
+- **THEN** `avaliacao` é `null`, sem lançar erro
 
 #### Scenario: Anime sem metadados opcionais
 
@@ -47,6 +59,12 @@ A API do catálogo SHALL oferecer listas de animes mais populares, da temporada 
 - **WHEN** a listagem por gênero é solicitada com um identificador válido
 - **THEN** a API retorna animes normalizados daquele gênero, ordenados por popularidade
 
+#### Scenario: Nota vinda da listagem
+
+- **GIVEN** que cada item da resposta da Tenrai traz `score`
+- **WHEN** qualquer listagem é solicitada
+- **THEN** os animes normalizados trazem `avaliacao` preenchida a partir do próprio item, sem requisição extra
+
 #### Scenario: Lista sem resultados
 
 - **GIVEN** que a Tenrai retorna uma lista vazia
@@ -69,7 +87,7 @@ A API do catálogo SHALL oferecer os detalhes de um anime por identificador, inc
 #### Scenario: Detalhes de um anime existente
 
 - **WHEN** os detalhes de um identificador existente são solicitados
-- **THEN** a API retorna o anime no contrato com `diretor` preenchido quando houver um responsável com posição exata de direção e `ondeAssistir` preenchido quando houver streaming
+- **THEN** a API retorna o anime no contrato com `avaliacao` preenchida quando houver `score` válido, `diretor` preenchido quando houver um responsável com posição exata de direção e `ondeAssistir` preenchido quando houver streaming
 
 #### Scenario: Diretor ausente ou indisponível
 

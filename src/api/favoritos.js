@@ -1,4 +1,5 @@
 import { ApiError } from './errors.js'
+import { normalizarAvaliacao } from './animes.js'
 
 // JSON Server de desenvolvimento (`npm run api`). Isolado aqui para permitir
 // trocar por variável de ambiente no futuro.
@@ -13,7 +14,7 @@ const MENSAGEM_INDISPONIVEL = 'Não foi possível acessar os favoritos.'
 // formato. As telas recebem o contrato do anime, com `id` numérico.
 //
 // Registro no db.json:
-// { id: "<gerado>", animeId: 1, titulo, capa, ano, diretor, sinopse, ondeAssistir }
+// { id: "<gerado>", animeId: 1, titulo, capa, ano, avaliacao, diretor, sinopse, ondeAssistir }
 
 function idValido(valor) {
   const id = Number(valor)
@@ -26,6 +27,7 @@ function paraContrato(dados, id) {
     titulo: dados.titulo ?? null,
     capa: dados.capa ?? null,
     ano: dados.ano ?? null,
+    avaliacao: normalizarAvaliacao(dados.avaliacao),
     diretor: dados.diretor ?? null,
     sinopse: dados.sinopse ?? null,
     ondeAssistir: Array.isArray(dados.ondeAssistir) ? dados.ondeAssistir : [],

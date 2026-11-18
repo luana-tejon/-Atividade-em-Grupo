@@ -65,6 +65,12 @@ function normalizarAno(bruto) {
   )
 }
 
+export function normalizarAvaliacao(valor) {
+  if (typeof valor !== 'number') return null
+  if (!Number.isFinite(valor) || valor < 1 || valor > 10) return null
+  return valor
+}
+
 function urlHttp(valor) {
   const texto = textoLimpo(valor)
   if (!texto) return null
@@ -107,6 +113,7 @@ export function normalizarAnime(bruto, { diretor = null } = {}) {
     titulo: textoLimpo(bruto?.title_english) || textoLimpo(bruto?.title),
     capa: normalizarCapa(bruto?.images),
     ano: normalizarAno(bruto),
+    avaliacao: normalizarAvaliacao(bruto?.score),
     diretor: textoLimpo(diretor) || null,
     sinopse: limparHtml(bruto?.synopsis),
     ondeAssistir: normalizarStreaming(bruto?.streaming),

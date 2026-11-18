@@ -96,13 +96,14 @@ Ler `Retry-After` (segundos ou data HTTP). Se a espera for de até 2 segundos, r
 | `titulo` | `title_english` → `title` | usa inglês se não vazio; senão original; senão `''` |
 | `capa` | `images.jpg.large_image_url` → `webp.large_image_url` → `jpg.image_url` | primeira URL não vazia; senão `''` |
 | `ano` | `year` → `aired.prop.from.year` | número ou `null` |
+| `avaliacao` | `score` | número finito de 1 a 10, preservando a precisão; ausente ou inválido vira `null` |
 | `diretor` | equipe (`/staff`) | nome da pessoa com posição exata `Director`; senão `null` |
 | `sinopse` | `synopsis` | remove tags HTML, normaliza espaços; vazio vira `null` |
 | `ondeAssistir` | `streaming` | `{ nome, url }`, descarta duplicados por nome e entradas sem URL |
 
 **Diretor:** comparar a posição normalizada com `Director` (case-insensitive, trim), não `includes`. Assim `ADR Director` e `Animation Director` não são confundidos com o diretor principal.
 
-**Listas:** retornam `diretor: null` e `ondeAssistir: []` porque a Tenrai não envia esses dados nas listagens. Isso é esperado e documentado para as telas.
+**Listas:** retornam `diretor: null` e `ondeAssistir: []` porque a Tenrai não envia esses dados nas listagens. A `avaliacao`, porém, vem do `score` de cada item da própria listagem, sem requisição extra. Isso é esperado e documentado para as telas.
 
 ### Detalhes em duas chamadas
 

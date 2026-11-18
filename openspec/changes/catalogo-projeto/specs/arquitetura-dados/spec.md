@@ -22,23 +22,29 @@ O app SHALL obter os dados do catálogo da Tenrai (`https://api.tenrai.org/v1`),
 
 ### Requirement: Contrato único do anime
 
-Todo anime consumido pelas telas SHALL usar o contrato `{ id, titulo, capa, ano, diretor, sinopse, ondeAssistir }`, com `ondeAssistir` como lista de `{ nome, url }`. Nenhum componente SHALL depender de campos brutos da fonte pública.
+Todo anime consumido pelas telas SHALL usar o contrato `{ id, titulo, capa, ano, avaliacao, diretor, sinopse, ondeAssistir }`, com `avaliacao` como número finito de 1 a 10 ou `null` e `ondeAssistir` como lista de `{ nome, url }`. Nenhum componente SHALL depender de campos brutos da fonte pública.
 
 #### Scenario: Objeto no contrato
 
 - **WHEN** um anime é entregue a uma tela
-- **THEN** ele contém exatamente as chaves `id`, `titulo`, `capa`, `ano`, `diretor`, `sinopse` e `ondeAssistir`
+- **THEN** ele contém exatamente as chaves `id`, `titulo`, `capa`, `ano`, `avaliacao`, `diretor`, `sinopse` e `ondeAssistir`
 
 #### Scenario: Campos opcionais ausentes
 
-- **GIVEN** que a fonte não informa ano, diretor ou streaming
+- **GIVEN** que a fonte não informa ano, avaliação, diretor ou streaming
 - **WHEN** o anime é normalizado
-- **THEN** `ano` e `diretor` ficam `null`, `ondeAssistir` fica `[]` e a tela continua funcional
+- **THEN** `ano`, `avaliacao` e `diretor` ficam `null`, `ondeAssistir` fica `[]` e a tela continua funcional
+
+#### Scenario: Avaliação inválida
+
+- **GIVEN** que a fonte informa uma avaliação menor que 1, maior que 10 ou não numérica
+- **WHEN** o anime é normalizado
+- **THEN** `avaliacao` fica `null`, sem quebrar a tela
 
 #### Scenario: Itens de lista sem dados de detalhe
 
 - **WHEN** uma tela recebe um anime vindo de uma listagem
-- **THEN** ela aceita `diretor: null` e `ondeAssistir: []`, pois esses dados só existem nos detalhes
+- **THEN** ela aceita `diretor: null` e `ondeAssistir: []`, pois esses dados só existem nos detalhes, e usa a `avaliacao` recebida na própria listagem
 
 ### Requirement: Separação entre leitura e escrita
 
@@ -78,7 +84,7 @@ O projeto SHALL disponibilizar fixtures no contrato do anime para que as telas p
 #### Scenario: Uso das fixtures
 
 - **WHEN** um integrante precisa montar uma tela sem depender da API
-- **THEN** ele encontra dados de exemplo no contrato, incluindo anime completo, sem diretor e sem streaming
+- **THEN** ele encontra dados de exemplo no contrato, incluindo anime completo, sem diretor, sem streaming, com avaliação decimal e com `avaliacao: null`
 
 #### Scenario: Falha real da API
 

@@ -8,12 +8,24 @@ Define como o usuário favorita animes pelo símbolo de coração, como os favor
 
 ### Requirement: Persistência de favoritos
 
-O app SHALL listar, adicionar e remover favoritos no JSON Server, na coleção `favoritos` de `db.json`. Cada favorito SHALL ser gravado como um objeto no contrato do anime `{ id, titulo, capa, ano, diretor, sinopse, ondeAssistir[] }`, identificado por `id`. Ao ser lido, o favorito SHALL ser entregue às telas no mesmo contrato, com `id` numérico igual ao `mal_id` do catálogo.
+O app SHALL listar, adicionar e remover favoritos no JSON Server, na coleção `favoritos` de `db.json`. Cada favorito SHALL ser gravado como um objeto no contrato do anime `{ id, titulo, capa, ano, avaliacao, diretor, sinopse, ondeAssistir[] }`, identificado por `id`. A `avaliacao` SHALL ser a nota disponível no momento em que o anime foi favoritado. Ao ser lido, o favorito SHALL ser entregue às telas no mesmo contrato, com `id` numérico igual ao `mal_id` do catálogo e `avaliacao: null` quando o registro antigo não tiver o campo.
 
 #### Scenario: Favorito adicionado
 
 - **WHEN** o usuário favorita um anime
 - **THEN** o anime é gravado na coleção `favoritos` e continua disponível após recarregar a página
+
+#### Scenario: Nota salva com o favorito
+
+- **GIVEN** que o anime tem `avaliacao` 8.74 no momento em que é favoritado
+- **WHEN** o registro é gravado e depois lido em `/favoritos`
+- **THEN** a nota 8.74 foi persistida e o card mostra `★ 8,7/10`
+
+#### Scenario: Favorito antigo sem avaliação
+
+- **GIVEN** que `GET /favoritos` devolve um registro sem o campo `avaliacao`
+- **WHEN** a página de favoritos é aberta
+- **THEN** o card mostra “Sem avaliação”, abre os detalhes e permite remover o favorito pelo coração
 
 #### Scenario: Favorito removido
 
@@ -29,7 +41,7 @@ O app SHALL listar, adicionar e remover favoritos no JSON Server, na coleção `
 
 - **GIVEN** que o anime com `id` 1 foi favoritado
 - **WHEN** o app recarrega e consulta se o anime 1 é favorito
-- **THEN** o anime é reconhecido como favorito e pode ser removido pelo mesmo `id`
+- **THEN** o anime é reconhecido como favorito pelo `animeId` 1 e pode ser removido pelos ids de registro associados a ele no JSON Server
 
 ### Requirement: Estado global de favoritos
 
@@ -119,12 +131,12 @@ O app não SHALL permitir dois registros do mesmo anime nos favoritos. Acionar o
 
 ### Requirement: Página Meus favoritos
 
-A página `/favoritos` SHALL listar os animes favoritados em grade, usando o mesmo card do catálogo (capa, título, ano e coração), na ordem em que foram adicionados. A página SHALL exibir a quantidade de favoritos, permitir abrir os detalhes pelo card e remover um favorito pelo coração. Enquanto os favoritos carregam, SHALL exibir um estado de carregamento. Quando não houver favoritos, SHALL exibir um estado vazio com link para o catálogo.
+A página `/favoritos` SHALL listar os animes favoritados em grade, usando o mesmo card do catálogo (capa, título, ano, avaliação e coração), na ordem em que foram adicionados. A página SHALL exibir a quantidade de favoritos, permitir abrir os detalhes pelo card e remover um favorito pelo coração. Enquanto os favoritos carregam, SHALL exibir um estado de carregamento. Quando não houver favoritos, SHALL exibir um estado vazio com link para o catálogo.
 
 #### Scenario: Favoritos existentes
 
 - **WHEN** o usuário abre a página de favoritos com registros salvos
-- **THEN** ela lista os animes favoritados com a quantidade total e cada card leva à página de detalhes
+- **THEN** ela lista os animes favoritados com a quantidade total, cada card mostra a avaliação salva e cada card leva à página de detalhes
 
 #### Scenario: Carregando
 

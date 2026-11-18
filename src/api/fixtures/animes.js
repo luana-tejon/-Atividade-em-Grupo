@@ -4,6 +4,7 @@ export const ANIMES_FIXTOS = [
     titulo: 'Cowboy Bebop',
     capa: 'https://cdn.myanimelist.net/images/anime/4/19644l.jpg',
     ano: 1998,
+    avaliacao: 8.74,
     diretor: 'Watanabe, Shinichirou',
     sinopse:
       'Um grupo de caçadores de recompensas viaja pelo sistema solar no ano de 2071.',
@@ -23,6 +24,7 @@ export const ANIMES_FIXTOS = [
     titulo: 'Fullmetal Alchemist: Brotherhood',
     capa: 'https://cdn.myanimelist.net/images/anime/1208/94745l.jpg',
     ano: 2009,
+    avaliacao: 9.1,
     diretor: null,
     sinopse:
       'Dois irmãos usam alquimia para tentar recuperar o que perderam.',
@@ -38,6 +40,7 @@ export const ANIMES_FIXTOS = [
     titulo: 'Attack on Titan',
     capa: 'https://cdn.myanimelist.net/images/anime/10/47347l.jpg',
     ano: 2013,
+    avaliacao: 8.5,
     diretor: 'Araki, Tetsurou',
     sinopse:
       'A humanidade sobrevive atrás de muralhas contra titãs gigantes.',
@@ -48,6 +51,7 @@ export const ANIMES_FIXTOS = [
     titulo: 'Anime de Exemplo sem Metadados',
     capa: '',
     ano: null,
+    avaliacao: null,
     diretor: null,
     sinopse: null,
     ondeAssistir: [],

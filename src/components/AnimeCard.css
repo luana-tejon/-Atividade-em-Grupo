@@ -22,7 +22,8 @@
 }
 
 .anime-card__link {
-  display: block;
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
   color: inherit;
   height: 100%;
@@ -64,6 +65,13 @@
   backdrop-filter: blur(4px);
 }
 
+.anime-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.85rem;
+}
+
 .anime-card__titulo {
   margin: 0;
   color: var(--texto);
@@ -76,9 +84,35 @@
   -webkit-box-orient: vertical;
 }
 
+.anime-card__avaliacao {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--texto-suave);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.anime-card__estrela {
+  color: #ffd166;
+  font-size: 0.95em;
+  line-height: 1;
+}
+
 @media (max-width: 640px) {
+  .anime-card__info {
+    gap: 0.3rem;
+    padding: 0.7rem;
+  }
+
   .anime-card__titulo {
     font-size: 0.95rem;
     -webkit-line-clamp: 1;
+  }
+
+  .anime-card__avaliacao {
+    font-size: 0.8rem;
   }
 }

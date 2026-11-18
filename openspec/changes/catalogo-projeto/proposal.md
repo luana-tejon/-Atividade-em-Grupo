@@ -51,4 +51,4 @@ Nenhuma. A capability `catalogo-animes` está sendo introduzida pela change `cat
 | 5 | Favoritos | Coração, API de favoritos no JSON Server, Context, página “Meus favoritos”, duplicado e erro de gravação | `src/api/favoritos.js`, `src/pages/Favoritos` |
 | 6 | Efeito e validação | Efeito ao favoritar, critérios de aceitação, checklist/relatório, seção “Reflexão” | `src/components/EfeitoFavorito` |
 
-O contrato único é o ponto de integração: `{ id, titulo, capa, ano, diretor, sinopse, ondeAssistir[] }`, com `ondeAssistir` como lista de `{ nome, url }`. Enquanto a API real não estiver pronta, os integrantes usam as fixtures de `src/api/fixtures`.
+O contrato único é o ponto de integração: `{ id, titulo, capa, ano, avaliacao, diretor, sinopse, ondeAssistir[] }`, com `avaliacao` como número finito de 1 a 10 ou `null` e `ondeAssistir` como lista de `{ nome, url }`. Enquanto a API real não estiver pronta, os integrantes usam as fixtures de `src/api/fixtures`.

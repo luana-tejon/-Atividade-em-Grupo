@@ -35,7 +35,7 @@ As páginas nunca chamam `fetch` diretamente. A API do catálogo pertence à cha
 
 ### Contrato como fronteira
 
-O contrato `{ id, titulo, capa, ano, diretor, sinopse, ondeAssistir }` é a única forma que as telas conhecem. `ondeAssistir` é `{ nome, url }[]`. Listas podem trazer `diretor: null` e `ondeAssistir: []`; a página de detalhes é a única que promete os dois preenchidos quando existirem.
+O contrato `{ id, titulo, capa, ano, avaliacao, diretor, sinopse, ondeAssistir }` é a única forma que as telas conhecem. `avaliacao` é um número finito de 1 a 10 ou `null`; `ondeAssistir` é `{ nome, url }[]`. Listas podem trazer `diretor: null` e `ondeAssistir: []`, mas já trazem a `avaliacao` do `score`; a página de detalhes é a única que promete diretor e streaming preenchidos quando existirem.
 
 **Alternativa descartada:** usar o objeto cru da Tenrai e adaptar em cada tela. geraria divergência entre Home, Detalhes e Favoritos.
 
@@ -49,7 +49,7 @@ Cada favorito é gravado como um objeto completo no contrato, usando `id` como c
 
 ### Identificador no JSON Server
 
-O `json-server@1.0.0-beta.15` sempre gera o `id` no `POST` (`{ ...data, id: randomId() }`) e não faz upsert por `PUT`/`PATCH`. Por isso o registro gravado é `{ id: <gerado pelo servidor>, animeId: <mal_id>, titulo, capa, ano, diretor, sinopse, ondeAssistir }`.
+O `json-server@1.0.0-beta.15` sempre gera o `id` no `POST` (`{ ...data, id: randomId() }`) e não faz upsert por `PUT`/`PATCH`. Por isso o registro gravado é `{ id: <gerado pelo servidor>, animeId: <mal_id>, titulo, capa, ano, avaliacao, diretor, sinopse, ondeAssistir }`.
 
 `src/api/favoritos.js` é a única camada que conhece esse formato:
 
