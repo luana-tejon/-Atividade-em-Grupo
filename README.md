@@ -226,13 +226,13 @@ A validação da API está em `docs/validacao-api.md` e a validação final do p
 ## Reflexão
 
 **Que decisão o agente teria tomado sozinho e a spec evitou?**
-[A preencher no final.]
+O agente sem ter as specs bem definidas, provavelmente deixaria gaps, ou iria além do escoplo esperado, o uso do openspec, permite maior rastreabilidade das ações que o agente deve executar, além de manter um histórico claro, onde permitiu que mesmo agentes de integrantes diferentes etendessem em que momento parou o ultimo, sem essa métodologia isso não seria possivel com essa precisão.
 
 **Que inconsistência a validação encontrou? Estava na spec ou no código?**
-[A preencher no final.]
+Foi entrado um excesso de trabalho da IA em uma das atividades, onde fez o trabalho de outra colega, mas o erro foi durante a contrução de uma spec, onde o dev não se atentou no que a IA planejou, contudo as validações puramente feitas pelo openspec são somente das execuções da IA.
 
 **Como o framework ajudou (ou atrapalhou) a coordenação do grupo?**
-[A preencher no final.]
+Como dito na primeira resposta, o openspec deixa uma maior rastreabilidade, permitindo que os colegas e seus agentes tenham uma visão clara em que momento pararam.
 
 **O que fariam diferente com outro framework?**
-[A preencher no final.]
+O framework do openspec ajuda muito na questão de validação do que a IA executou, evitar gaps, maior rastreabilidade, contudo deixa a desejar na questão de validação que deve ser personalizado por cada usuário e não de forma padronizada como no GSD.
